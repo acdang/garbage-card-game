@@ -1,4 +1,4 @@
-class PlayRound  < Active Record::Base
+class PlayRound  < ActiveRecord::Base
     belongs_to :player
     belongs_to :round
 end 

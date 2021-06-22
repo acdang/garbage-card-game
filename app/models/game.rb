@@ -1,3 +1,3 @@
-class Game  < Active Record::Base
+class Game  < ActiveRecord::Base
     has_many :rounds
 end
