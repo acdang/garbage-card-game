@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_22_181921) do
+ActiveRecord::Schema.define(version: 2021_06_22_182122) do
 
   create_table "play_rounds", force: :cascade do |t|
     t.boolean "is_winner", default: false
@@ -22,6 +22,10 @@ ActiveRecord::Schema.define(version: 2021_06_22_181921) do
     t.string "first_name"
     t.string "last_name"
     t.boolean "is_cpu", default: false
+  end
+
+  create_table "rounds", force: :cascade do |t|
+    t.integer "game_id"
   end
 
 end
