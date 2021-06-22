@@ -1,0 +1,86 @@
+"Welcome to Garbage, a card game!"
+
+"Would you like to know the rules? ('yes' or 'no')"
+
+"Are you a new player? 'yes' or 'no')"
+
+-------------if new player--------------
+"Press enter to sign up"
+First name:
+Last name:
+[CREATE new Player with name, is_cpu: false]
+[save player to variable]
+----------------------------------------
+
+-------------if returning player--------------
+"Press enter your name"
+First name:
+Last name:
+[READ for Player with this name and proceed - error for no match]
+[save player to variable]
+----------------------------------------------
+HOME:
+"Hello, #{f_name} #{l_name}!"
+[display stats - e.g. games played = 0, games won = 0, rounds won = 0]
+"Press enter to start a game"
+[CREATE new Game, is_complete: false]
+[save this game to variable]
+
+"Choose your opponent by entering their number"
+1. Opponent 1
+2. Opponent 2
+3. Opponent 3
+[save this opponent to variable]
+
+====================== 1st round ======================
+
+[CREATE new Round, game_id = Game]
+[save this round to variable]
+
+---game play---
+
+---game finishes---
+
+"The winner of this round is #{f_name}"
+
+[CREATE new PlayRound for each player]
+
+====================== 2nd round ======================
+
+"Press enter to play the 2nd round"
+
+[CREATE new Round, game_id = same]
+
+---game play---
+
+---game finishes---
+
+"The winner of this round is #{f_name}"
+
+[CREATE new PlayRound for each player]
+
+====================== 3rd round ======================
+
+"Press enter to play the 3rd (final) round"
+
+[CREATE new Round, game_id = same]
+
+---game play---
+
+---game finishes---
+
+"The winner of this round is #{f_name}"
+
+[CREATE new PlayRound for each player]
+
+====================== end of game ======================
+
+[READ for player1's # of wins in this round - using PlayRound and round_id]
+[READ for player2's # of wins in this round - using PlayRound and round_id]
+
+"The winner of this game is #{f_name}!"
+
+"Press enter to go back to HOME"
+
+-- update stats
+-- start new game if player wants
