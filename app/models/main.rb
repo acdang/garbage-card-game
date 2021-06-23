@@ -36,7 +36,7 @@ def sign_up
     registered = TTY::Prompt.new
     registered.ok("Hello, #{f_name} #{l_name}!")
     puts "\n"
-    Player.new_player(f_name, l_name) # UNCOMMENT THIS LATER!!!!!!!!
+    # Player.new_player(f_name, l_name) # UNCOMMENT THIS LATER!!!!!!!!
 end
 
 # check if Player exists
@@ -75,6 +75,15 @@ def player_status(status)
     else
         check_player()
     end
+end
+
+def handle_player
+    new_player = TTY::Prompt.new
+    options = [{name: "New Player", value: 1}, {name: "Returning Player", value: 2}]
+    status = new_player.select("What's your status?", options)
+    puts "\n"
+
+    player_status(status)
 end
 
 def create_round(game_id)
@@ -149,6 +158,8 @@ end
 
 # methods should prob be in another file?
 
+
+
 # ==============================================================
 # Welcome ======================================================
 
@@ -156,14 +167,7 @@ puts "Welcome to Garbage, a card game!"
 puts "\n"
 
 # Handle player ======================================================
-
-new_player = TTY::Prompt.new
-# new_player.yes?("Are you a new player?") # change to select?
-options = [{name: "New Player", value: 1}, {name: "Returning Player", value: 2}]
-status = new_player.select("What's your status?", options)
-puts "\n"
-
-current_player = player_status(status)
+current_player = handle_player()
 
 # Home stats ======================================================
 
@@ -173,6 +177,7 @@ puts "\n"
 continue = TTY::Prompt.new
 continue.keypress("---> Press enter to create a NEW GAME\n", keys: [:return])
 
+binding.pry
 # Play game ======================================================
 play_game()
 
