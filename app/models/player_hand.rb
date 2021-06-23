@@ -1,3 +1,5 @@
+require "tty-prompt"
+
 class PlayerHand
 
     attr_accessor :cards, :deck, :round_won
@@ -26,21 +28,33 @@ class PlayerHand
             end
 
             if card == 0
-                # print out available spots to insert wild card
-                # and prompt user to play wild in that spot
+                prompt = TTY::Prompt.new
+                
+                i = 0
+                available_spots = []
+                while i < 10 do
+                    if @cards[i] != nil
+                        available_spots << i + 1
+                    end
+                end
+
+                location = prompt.select("You pulled a wild card! Choose a spot to fill with your wild card:", available_spots)
+                
+                swap_cards(location)
+                
                 if complete_hand?(@cards)
                     game_won
                 end
 
                 # delete later
-                card = @cards[0]
-                i = 0
-                while card == nil do
-                    i += 1
-                    card = @cards[i]
-                end
+                # card = @cards[0]
+                # i = 0
+                # while card == nil do
+                #     i += 1
+                #     card = @cards[i]
+                # end
 
-                @cards[i] = nil
+                # @cards[i] = nil
 
             elsif card == 11 || card == 12
                 return true
