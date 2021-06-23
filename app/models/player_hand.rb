@@ -2,7 +2,7 @@ require "tty-prompt"
 
 class PlayerHand
 
-    attr_accessor :cards, :deck, :round_won
+    attr_accessor :cards, :deck, :round_won, :player
 
     def initialize(deck, player)
         @deck = deck
@@ -45,7 +45,7 @@ class PlayerHand
                 card = swap_cards(location)
                 
                 if complete_hand?(@cards)
-                    game_won
+                    win
                 end
 
             elsif card == 11 || card == 12

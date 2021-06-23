@@ -1,6 +1,8 @@
 require_relative "player"
 require_relative "play_round"
 require_relative "round"
+require_relative "player_hand"
+require_relative "deck"
 
 require 'pry'
 
@@ -128,14 +130,14 @@ def display_stats(current_player)
 end
 
 
-def play_game(current_player, cpu_opponent)
+def play_game(current_player)
     # Create game
-    # current_game = create_game() # UNCOMMENT LATER!!!
+    current_game = create_game() # UNCOMMENT LATER!!!
 
     # Choose opponent
     cpu_opponent = choose_opponent()
 
-    binding.pry
+    # binding.pry
     # Create round 1
     round1 = create_round(current_game)
 
@@ -144,7 +146,7 @@ def play_game(current_player, cpu_opponent)
     current_player_hand = PlayerHand.new(deck1, current_player)
     cpu_player_hand = PlayerHand.new(deck1, cpu_opponent)
 
-    while !current_player_hand.round_won && !cpu_opponent.round_won do
+    while !(current_player_hand.round_won) && !(cpu_player_hand.round_won) do
         current_player_hand.make_move
         cpu_player_hand.make_move
     end
@@ -160,8 +162,8 @@ def play_game(current_player, cpu_opponent)
     # PlayRounds
     create_play_rounds(round1, winning_player, losing_player)
 
-    second_round = TTY::Prompt.new
-    second_round.keypress("---> Press enter to beging ROUND 2\n", keys: [:return])
+    # second_round = TTY::Prompt.new
+    # second_round.keypress("---> Press enter to beging ROUND 2\n", keys: [:return])
 
     binding.pry
     # Create round 2

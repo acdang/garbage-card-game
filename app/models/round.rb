@@ -3,7 +3,7 @@ class Round  < ActiveRecord::Base
     has_many :play_rounds
     has_many :rounds, through: :play_rounds
 
-    def self.new_round(game_id)
-        Round.create(game_id: game_id)
+    def self.new_round
+        Round.create
     end
 end
