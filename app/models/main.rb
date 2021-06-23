@@ -87,15 +87,9 @@ def handle_player
 end
 
 def create_round(current_game)
-    current_game.rounds << Round.new_round
-end
-
-def lost_round(round_id, player_id)
-    PlayRound.new_lost_round(round_id, player_id)
-end
-
-def won_round(round_id, player_id)
-    PlayRound.new_won_round(round_id, player_id)
+    round = Round.new_round
+    current_game.rounds << round
+    round
 end
 
 def create_game
@@ -117,10 +111,18 @@ def choose_opponent
     opponent_prompt.select("Choose your opponent:", choices)
 end
 
-def create_play_rounds(round_id, winner_player_id, loser_player_id)
-    Player.find(winner_player_id).play_rounds << won_round(round_id, winner_player_id)
-    Player.find(loser_player_id).play_rounds << lost_round(round_id, loser_player_id)
+
+def lost_round(round_id, player_id)
+    PlayRound.new_lost_round(round_id, player_id)
 end
+def won_round(round_id, player_id)
+    PlayRound.new_won_round(round_id, player_id)
+end
+def create_play_rounds(round_id, winning_player, losing_player)
+    winning_player.play_rounds << won_round(round_id, winner_player_id)
+    losing_player.play_rounds << lost_round(round_id, loser_player_id)
+end
+
 
 def play_game
     # Create game
@@ -133,25 +135,34 @@ def play_game
     round1 = create_round(current_game)
 
     # gameplay
+    # winning_player = ?
+    # losing_player = ?
+
 
     # PlayRounds
-    # create_play_rounds(round1.id, [winner_player_id], [loser_player_id])
+    # create_play_rounds(round1, [winning_player], [losing_player])
 
     # Create round 2
     round2 = create_round(current_game)
 
     # gameplay
+    # winning_player = ?
+    # losing_player = ?
+
 
     # PlayRounds
-    # create_play_rounds(round2.id, [winner_player_id], [loser_player_id])
+    # create_play_rounds(round2, [winning_player], [losing_player])
 
     # Create round 3
     round3 = create_round(current_game)
 
     # gameplay
+    # winning_player = ?
+    # losing_player = ?
+
 
     # PlayRounds
-    # create_play_rounds(round3.id, [winner_player_id], [loser_player_id])
+    # create_play_rounds(round3, [winning_player], [losing_player])
 
 end
 
