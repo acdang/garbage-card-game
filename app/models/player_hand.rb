@@ -1,13 +1,16 @@
 class PlayerHand
 
-    attr_accessor :cards, :deck
+    attr_accessor :cards, :deck, :round_won
 
-    def initialize(deck)
+    def initialize(deck, player)
         @deck = deck
         @cards = []
+        @player = player
         10.times do 
             @cards.append(deck.remove_card)
         end
+        # deck.players << self
+        @round_won = false
     end
     
     def make_move
@@ -45,7 +48,7 @@ class PlayerHand
             else
                 card = swap_cards(card)
                 if complete_hand?(@cards)
-                    game_won
+                    win
                 end
             end
 
@@ -66,10 +69,8 @@ class PlayerHand
         array.uniq.size <= 1
     end
 
-    def game_won
-        # signal to database that this player instance (which
-        # can be either a player or CPU) has won
-        puts "You win!"
+    def win
+        @round_won = true
     end
 
 end
