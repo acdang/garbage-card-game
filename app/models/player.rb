@@ -17,7 +17,7 @@ class Player < ActiveRecord::Base
 
     # return total num of games a player has played
     # WILL SIMPLIFY
-    def total_games
+    def total_num_games
         # get all player's PlayRounds
         all_play_rounds = self.play_rounds #if nothing, return 0
 
@@ -38,7 +38,7 @@ class Player < ActiveRecord::Base
 
     end
     # return total num of games a player has won
-    def games_won
+    def num_games_won
         # get all player's PlayRounds
         all_play_rounds = self.play_rounds #if nothing, return 0
 
