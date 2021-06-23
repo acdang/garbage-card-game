@@ -147,6 +147,9 @@ def play_game(current_player, cpu_opponent)
     # PlayRounds
     # create_play_rounds(round1, [winning_player], [losing_player])
 
+    second_round = TTY::Prompt.new
+    second_round.keypress("---> Press enter to beging ROUND 2\n", keys: [:return])
+
     # Create round 2
     round2 = create_round(current_game)
 
