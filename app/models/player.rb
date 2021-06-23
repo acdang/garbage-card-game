@@ -10,8 +10,8 @@ class Player < ActiveRecord::Base
         self.find_by(first_name: f_name, last_name: l_name, is_cpu: false)
     end
 
-    # return number of games played by Player instance
-    def num_of_games
-
+    # return full name
+    def full_name
+        "#{self.first_name} #{self.last_name}"
     end
 end
