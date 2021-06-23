@@ -33,16 +33,16 @@ def sign_up
     l_name = get_last_name()
 
     puts "\n"
-    registered = TTY::Prompt.new
-    registered.ok("Hello, #{f_name} #{l_name}!")
+    # registered = TTY::Prompt.new
+    # registered.ok("Hello, #{f_name} #{l_name}!")
     puts "\n"
-    # Player.new_player(f_name, l_name) # UNCOMMENT THIS LATER!!!!!!!!
+    Player.new_player(f_name, l_name)
 end
 # check if Player exists
 def check_player
     user_exists = false
 
-    while user_exists == false
+    # while user_exists == false
         puts "---> LOG IN\n"
 
         f_name = get_first_name()
@@ -52,8 +52,8 @@ def check_player
 
         if search_player
             puts "\n"
-            exist = TTY::Prompt.new
-            exist.ok("Hello, #{f_name} #{l_name}!")
+            # exist = TTY::Prompt.new
+            # exist.ok("Hello, #{f_name} #{l_name}!")
             puts "\n"
             user_exists = true
         else
@@ -61,8 +61,10 @@ def check_player
             not_exist = TTY::Prompt.new
             not_exist.error("That user does not exist.")
             puts "\n"
+
+            next_steps_prompt()
         end
-    end
+    # end
     search_player
 end
 def player_status(status)
@@ -70,19 +72,82 @@ def player_status(status)
     if status == 1
         sign_up()
     # check Player if no
-    else
+    elsif status == 2
         check_player()
+    else
+        exit
     end
 end
 def handle_player
     new_player = TTY::Prompt.new
-    options = [{name: "New Player", value: 1}, {name: "Returning Player", value: 2}]
+    options = [{name: "New Player", value: 1}, {name: "Returning Player", value: 2}, {name: "quit", value: 3}]
     status = new_player.select("What's your status?", options)
     puts "\n"
 
     player_status(status)
 end
+def next_steps_prompt
+    next_steps = TTY::Prompt.new
+    options = [
+        {name: "Try LOG IN again", value: 1},
+        {name: "SIGN UP", value: 2},
+        {name: "quit", value: 3}
+    ]
+    choice = next_steps.select("What do you want to do next?", options)
 
+    if choice == 1
+        puts "\n"
+        check_player()
+    elsif choice == 2
+        puts "\n"
+        sign_up()
+    else
+        exit
+    end
+end
+
+def menu_prompt(current_player)
+    menu = TTY::Prompt.new
+    options = [
+        {name: "Start a NEW GAME", value: 1},
+        {name: "DELETE account", value: 2},
+        {name: "quit", value: 3}
+    ]
+    choice = menu.select("MENU:", options)
+
+    if choice == 1
+        play_game(current_player)
+    elsif choice == 2
+        delete_account(current_player)
+    else
+        exit
+    end
+end
+
+def delete_account#(current_player)
+    confirm = TTY::Prompt.new
+    choice = confirm.yes?("Are you sure you want to DELETE your account?")
+
+    if choice
+        puts "WILL DELETE ACCOUNT"
+        puts "\n"
+    else
+        menu(current_player)
+    end
+end
+
+def menu(current_player)
+    puts "----------------------------"
+    hello = TTY::Prompt.new
+    # binding.pry
+    hello.ok("Hello, #{current_player.full_name}!")
+    puts "\n"
+
+    display_stats(current_player)
+
+    menu_prompt(current_player)
+
+end
 
 def create_round(current_game)
     round = Round.new_round
@@ -132,7 +197,7 @@ end
 
 def play_game(current_player)
     # Create game
-    current_game = create_game() # UNCOMMENT LATER!!!
+    current_game = create_game()
 
     # Choose opponent
     cpu_opponent = choose_opponent()
@@ -190,5 +255,7 @@ def play_game(current_player)
 
     # PlayRounds
     # create_play_rounds(round3, [winning_player], [losing_player])
+
+    menu()
 
 end
