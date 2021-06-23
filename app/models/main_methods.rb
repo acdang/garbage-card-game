@@ -128,7 +128,7 @@ def display_stats(current_player)
 end
 
 
-def play_game
+def play_game(current_player, cpu_opponent)
     # Create game
     # current_game = create_game() # UNCOMMENT LATER!!!
 
