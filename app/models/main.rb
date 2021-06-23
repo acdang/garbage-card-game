@@ -17,23 +17,15 @@ current_player = handle_player()
 
 # Home stats ======================================================
 
-def total_num_games
-    
-end
-
-def num_games_won
-    
-end
-
 def display_stats(current_player)
-    # display total num of games played
+    #display total number of completed games by player
+    puts "Number of completed games: #{current_player.total_num_completed_games}"
 
     # display total num of games won
 
 end
 
-puts "STATS WILL GO HERE"
-puts "\n"
+display_stats(curent_player)
 
 continue = TTY::Prompt.new
 continue.keypress("---> Press enter to create a NEW GAME\n", keys: [:return])
