@@ -161,6 +161,9 @@ def play_game(current_player, cpu_opponent)
     # PlayRounds
     # create_play_rounds(round2, [winning_player], [losing_player])
 
+    third_round = TTY::Prompt.new
+    third_round.keypress("---> Press enter to beging ROUND 3\n", keys: [:return])
+
     # Create round 3
     round3 = create_round(current_game)
 
