@@ -167,6 +167,11 @@ def choose_opponent
     opponent_prompt.select("Choose your opponent:", choices)
 end
 
+def create_play_rounds(round_id, winner_player_id, loser_player_id)
+    won_round(round_id, winner_player_id)
+    lost_round(round_id, loser_player_id)
+end
+
 def play_game
     # Create game
     current_game = create_game()
@@ -180,7 +185,7 @@ def play_game
     # gameplay
 
     # PlayRounds
-
+    # create_play_rounds(round1.id, [winner_player_id], [loser_player_id])
 
     # Create round 2
 
