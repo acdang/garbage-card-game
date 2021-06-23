@@ -1,4 +1,7 @@
 require_relative "player"
+require_relative "play_round"
+require_relative "round"
+
 require 'pry'
 
 require "tty-prompt"
@@ -33,7 +36,7 @@ def sign_up
     registered = TTY::Prompt.new
     registered.ok("Hello, #{f_name} #{l_name}!")
     puts "\n"
-    # Player.new_player(f_name, l_name) # UNCOMMENT THIS LATER!!!!!!!!
+    Player.new_player(f_name, l_name) # UNCOMMENT THIS LATER!!!!!!!!
 end
 
 # check if Player exists
@@ -46,7 +49,9 @@ def check_player
         f_name = get_first_name()
         l_name = get_last_name()
 
-        if Player.check_player(f_name, l_name)
+        search_player = Player.check_player(f_name, l_name)
+
+        if search_player
             puts "\n"
             exist = TTY::Prompt.new
             exist.ok("Hello, #{f_name} #{l_name}!")
@@ -59,6 +64,29 @@ def check_player
             puts "\n"
         end
     end
+    search_player
+end
+
+def player_status(status)
+    # create new Player if yes
+    if status == 1
+        sign_up()
+    # check Player if no
+    else
+        check_player()
+    end
+end
+
+def create_round(game_id)
+    Round.new_round(game_id)
+end
+
+def lost_round(round_id, player_id)
+    PlayRound.new_lost_round(round_id, player_id)
+end
+
+def won_round(round_id, player_id)
+    PlayRound.new_won_round(round_id, player_id)
 end
 
 # Welcome ======================================================
@@ -74,20 +102,15 @@ options = [{name: "New Player", value: 1}, {name: "Returning Player", value: 2}]
 status = new_player.select("What's your status?", options)
 puts "\n"
 
-# create new Player if yes
-if status == 1
-    sign_up()
-# check Player if no
-else
-    check_player()
-end
+current_player = player_status(status)
+
 # Display stats ======================================================
 
 puts "STATS WILL GO HERE"
 puts "\n"
 
 # Create new game ======================================================
-continue = TTY::Prompt.new(active_color: :cyan)
+continue = TTY::Prompt.new
 continue.keypress("---> Press enter to create a NEW GAME\n", keys: [:return])
 
 current_game = Game.new_game
@@ -107,4 +130,19 @@ choices = [
 ]
 cpu_opponent = opponent_prompt.select("Choose your opponent:", choices)
 
+binding.pry
 
+# Create new round ======================================================
+round1 = create_round(current_game.id) # how to create for multiple rounds without typing it all out
+
+# ---game play---
+
+# ---game finishes---
+
+# "The winner of this round is #{f_name}"
+
+# Create new PlayRounds ======================================================
+
+lost_round(round1.id, cpu_opponent.id)
+won_round(round1.id, current_player.id)
+binding.pry
