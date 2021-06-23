@@ -45,11 +45,17 @@ class Player < ActiveRecord::Base
         # get all player's Round ids (uniq)
         all_round_ids_uniq = all_play_rounds.map {|play_round| play_round.round_id}.uniq
 
-        # get Rounds from those ids
+        #get Rounds from those ids
         rounds = Round.find(all_round_ids_uniq)
 
-        # select all Rounds where winner_player_id == self.id
-        all_wins = rounds.map {|round| round.winner_player_id == self.id}
+        # get game ids from those Rounds
+        all_game_ids_uniq = rounds.map {|round| round.game_id}.uniq
+
+        # get all games (uniq) -- returned in an array
+        all_games = Game.find(all_game_ids_uniq)
+
+        # select all Games where winner_player_id == self.id
+        all_wins = all_games.map {|round| round.winner_player_id == self.id}
 
         # return count of winning games
         all_wins.count
