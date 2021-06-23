@@ -104,14 +104,15 @@ puts "\n"
 
 current_player = player_status(status)
 
-# Display stats ======================================================
+# Home stats ======================================================
 
 puts "STATS WILL GO HERE"
 puts "\n"
 
-# Create new game ======================================================
 continue = TTY::Prompt.new
 continue.keypress("---> Press enter to create a NEW GAME\n", keys: [:return])
+
+# Create new game ======================================================
 
 current_game = Game.new_game
 
@@ -143,6 +144,50 @@ round1 = create_round(current_game.id) # how to create for multiple rounds witho
 
 # Create new PlayRounds ======================================================
 
-lost_round(round1.id, cpu_opponent.id)
-won_round(round1.id, current_player.id)
+# lost_round(round1.id, cpu_opponent.id)
+# won_round(round1.id, current_player.id)
 binding.pry
+
+def create_game
+    Game.new_game
+end
+
+def choose_opponent
+    opponent_prompt = TTY::Prompt.new
+
+    opponent1 = Player.first
+    opponent2 = Player.second
+    opponent3 = Player.third
+
+    choices = [
+        {name: opponent1.full_name, value: opponent1},
+        {name: opponent2.full_name, value: opponent2},
+        {name: opponent3.full_name, value: opponent3}
+    ]
+    opponent_prompt.select("Choose your opponent:", choices)
+end
+
+def play_game
+    # Create game
+    current_game = create_game()
+
+    # Choose opponent
+    cpu_opponent = choose_opponent()
+
+    # Create round 1
+    round1 = create_round(current_game.id)
+
+    # gameplay
+
+    # PlayRounds
+
+
+    # Create round 2
+
+    # PlayRounds
+
+    # Create round 3
+
+    # PlayRounds
+
+end
