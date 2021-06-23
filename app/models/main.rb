@@ -171,6 +171,15 @@ current_player = handle_player()
 
 # Home stats ======================================================
 
+def total_games
+    
+end
+
+def display_stats
+    # display total num of games played
+
+end
+
 puts "STATS WILL GO HERE"
 puts "\n"
 
