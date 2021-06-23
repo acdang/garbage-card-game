@@ -171,6 +171,11 @@ current_player = handle_player()
 
 # Home stats ======================================================
 
+# return Player instance of the winner of a round
+def round_winner(round_id, current_player, cpu_opponent)
+    
+end
+
 def total_num_games
     
 end
