@@ -1,4 +1,5 @@
 require "tty-prompt"
+require 'pry'
 
 class PlayerHand
 
@@ -28,24 +29,45 @@ class PlayerHand
             end
 
             if card == 0
-                
-                prompt = TTY::Prompt.new
-                
-                i = 0
-                available_spots = []
-                while i < 10 do
-                    if @cards[i] != nil
-                        available_spots << i + 1
-                    end
-                    i += 1
-                end
 
-                location = prompt.select("You pulled a wild card! Choose a spot to fill with your wild card:", available_spots)
-                
-                card = swap_cards(location)
-                
-                if complete_hand?(@cards)
-                    win
+                if !(@player.is_cpu)
+
+                    prompt = TTY::Prompt.new
+                    
+                    i = 0
+                    available_spots = []
+                    while i < 10 do
+                        if @cards[i] != nil
+                            available_spots << i + 1
+                        end
+                        i += 1
+                    end
+
+                    location = prompt.select("You pulled a wild card! Choose a spot to fill with your wild card:", available_spots)
+                    
+                    card = swap_cards(location)
+                    
+                    if complete_hand?(@cards)
+                        win
+                    end
+
+                else
+                    binding.pry
+                    card = @cards[0]
+                    i = 0
+                    while card == nil do
+                        i += 1
+                        card = @cards[i]
+                    end
+    
+                    @cards[i] = nil
+
+                    if complete_hand?(@cards)
+                        win
+                    end
+
+                    binding.pry
+
                 end
 
             elsif card == 11 || card == 12
