@@ -89,65 +89,6 @@ def won_round(round_id, player_id)
     PlayRound.new_won_round(round_id, player_id)
 end
 
-# Welcome ======================================================
-
-puts "Welcome to Garbage, a card game!"
-puts "\n"
-
-# Handle player ======================================================
-
-new_player = TTY::Prompt.new
-# new_player.yes?("Are you a new player?") # change to select?
-options = [{name: "New Player", value: 1}, {name: "Returning Player", value: 2}]
-status = new_player.select("What's your status?", options)
-puts "\n"
-
-current_player = player_status(status)
-
-# Home stats ======================================================
-
-puts "STATS WILL GO HERE"
-puts "\n"
-
-continue = TTY::Prompt.new
-continue.keypress("---> Press enter to create a NEW GAME\n", keys: [:return])
-
-# Create new game ======================================================
-
-current_game = Game.new_game
-
-# Choose opponent ======================================================
-
-opponent_prompt = TTY::Prompt.new
-
-opponent1 = Player.first
-opponent2 = Player.second
-opponent3 = Player.third
-
-choices = [
-    {name: opponent1.full_name, value: opponent1},
-    {name: opponent2.full_name, value: opponent2},
-    {name: opponent3.full_name, value: opponent3}
-]
-cpu_opponent = opponent_prompt.select("Choose your opponent:", choices)
-
-binding.pry
-
-# Create new round ======================================================
-round1 = create_round(current_game.id) # how to create for multiple rounds without typing it all out
-
-# ---game play---
-
-# ---game finishes---
-
-# "The winner of this round is #{f_name}"
-
-# Create new PlayRounds ======================================================
-
-# lost_round(round1.id, cpu_opponent.id)
-# won_round(round1.id, current_player.id)
-binding.pry
-
 def create_game
     Game.new_game
 end
@@ -172,6 +113,7 @@ def create_play_rounds(round_id, winner_player_id, loser_player_id)
     lost_round(round_id, loser_player_id)
 end
 
+# could this be simplified any further?
 def play_game
     # Create game
     current_game = create_game()
@@ -188,11 +130,51 @@ def play_game
     # create_play_rounds(round1.id, [winner_player_id], [loser_player_id])
 
     # Create round 2
+    round2 = create_round(current_game.id)
+
+    # gameplay
 
     # PlayRounds
+    # create_play_rounds(round2.id, [winner_player_id], [loser_player_id])
 
     # Create round 3
+    round3 = create_round(current_game.id)
+
+    # gameplay
 
     # PlayRounds
+    # create_play_rounds(round3.id, [winner_player_id], [loser_player_id])
 
 end
+
+# methods should prob be in another file?
+
+# ==============================================================
+# Welcome ======================================================
+
+puts "Welcome to Garbage, a card game!"
+puts "\n"
+
+# Handle player ======================================================
+
+new_player = TTY::Prompt.new
+# new_player.yes?("Are you a new player?") # change to select?
+options = [{name: "New Player", value: 1}, {name: "Returning Player", value: 2}]
+status = new_player.select("What's your status?", options)
+puts "\n"
+
+current_player = player_status(status)
+
+# Home stats ======================================================
+
+puts "STATS WILL GO HERE"
+puts "\n"
+
+continue = TTY::Prompt.new
+continue.keypress("---> Press enter to create a NEW GAME\n", keys: [:return])
+
+# Play game ======================================================
+play_game()
+
+
+binding.pry
