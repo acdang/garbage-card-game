@@ -54,10 +54,25 @@ class Player < ActiveRecord::Base
         # get all games (uniq) -- returned in an array
         all_games = Game.find(all_game_ids_uniq)
 
-        # select all Games where winner_player_id == self.id
+        # select all Games where winner_player_id == self.id ????????
         all_wins = all_games.map {|round| round.winner_player_id == self.id}
 
         # return count of winning games
         all_wins.count
+    end
+
+    # return a player's number of wins in a particular round
+    def num_wins_in_round(round_id)
+        # get all player's PlayRounds
+        all_play_rounds = self.play_rounds #if nothing, return 0
+
+        # get all PlayRounds of a particular round
+        play_rounds = all_play_rounds.select {|play_round| play_round.round_id == round_id}
+
+        # select PlayRounds player has won
+        won = play_rounds.select {|play_round| is_winner == true}
+
+        # return count
+        won.count
     end
 end
