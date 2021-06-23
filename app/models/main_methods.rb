@@ -107,16 +107,14 @@ def choose_opponent
     opponent_prompt.select("Choose your opponent:", choices)
 end
 
+def create_play_rounds(round, winning_player, losing_player)
+    won_round = PlayRound.new_won_round
+    winning_player.play_rounds << won_round
+    round.play_rounds << won_round
 
-def lost_round(round_id, player_id)
-    PlayRound.new_lost_round(round_id, player_id)
-end
-def won_round(round_id, player_id)
-    PlayRound.new_won_round(round_id, player_id)
-end
-def create_play_rounds(round_id, winning_player, losing_player)
-    winning_player.play_rounds << won_round(round_id, winner_player_id)
-    losing_player.play_rounds << lost_round(round_id, loser_player_id)
+    lost_round = PlayRound.new_lost_round
+    losing_player.play_rounds << lost_round
+    round.play_rounds << lost_round
 end
 
 
