@@ -17,14 +17,6 @@ current_player = handle_player()
 
 # Home stats ======================================================
 
-def display_stats(current_player)
-    #display total number of completed games by player
-    puts "Number of completed games: #{current_player.total_num_completed_games}"
-
-    # display total num of games won
-
-end
-
 display_stats(curent_player)
 
 continue = TTY::Prompt.new

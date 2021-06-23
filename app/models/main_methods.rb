@@ -118,6 +118,15 @@ def create_play_rounds(round, winning_player, losing_player)
 end
 
 
+def display_stats(current_player)
+    #display total number of completed games by player
+    puts "Number of completed games: #{current_player.total_num_completed_games}"
+
+    # display total num of games won
+
+end
+
+
 def play_game
     # Create game
     current_game = create_game()
