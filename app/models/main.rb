@@ -17,14 +17,13 @@ current_player = handle_player()
 
 # Home stats ======================================================
 
-display_stats(curent_player)
+display_stats(current_player)
 
 continue = TTY::Prompt.new
 continue.keypress("---> Press enter to create a NEW GAME\n", keys: [:return])
 
-binding.pry
 # Play game ======================================================
 play_game()
 
 
-binding.pry
+# binding.pry

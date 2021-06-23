@@ -121,6 +121,7 @@ end
 def display_stats(current_player)
     #display total number of completed games by player
     puts "Number of completed games: #{current_player.total_num_completed_games}"
+    puts "\n"
 
     # display total num of games won
 
@@ -129,11 +130,12 @@ end
 
 def play_game
     # Create game
-    current_game = create_game()
+    # current_game = create_game() # UNCOMMENT LATER!!!
 
     # Choose opponent
     cpu_opponent = choose_opponent()
 
+    binding.pry
     # Create round 1
     round1 = create_round(current_game)
 
