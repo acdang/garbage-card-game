@@ -179,7 +179,7 @@ def num_games_won
     
 end
 
-def display_stats
+def display_stats(current_player)
     # display total num of games played
 
     # display total num of games won
