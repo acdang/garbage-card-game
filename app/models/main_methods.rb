@@ -140,16 +140,30 @@ def play_game(current_player, cpu_opponent)
     round1 = create_round(current_game)
 
     # gameplay
-    # winning_player = ?
-    # losing_player = ?
+    deck1 = Deck.new
+    current_player_hand = PlayerHand.new(deck1, current_player)
+    cpu_player_hand = PlayerHand.new(deck1, cpu_opponent)
 
+    while !current_player_hand.round_won && !cpu_opponent.round_won do
+        current_player_hand.make_move
+        cpu_player_hand.make_move
+    end
+
+    if current_player_hand.round_won
+        winning_player = current_player_hand.player
+        losing_player = cpu_player_hand.player
+    else
+        winning_player = cpu_player_hand.player
+        losing_player = current_player_hand.player
+    end
 
     # PlayRounds
-    # create_play_rounds(round1, [winning_player], [losing_player])
+    create_play_rounds(round1, winning_player, losing_player)
 
     second_round = TTY::Prompt.new
     second_round.keypress("---> Press enter to beging ROUND 2\n", keys: [:return])
 
+    binding.pry
     # Create round 2
     round2 = create_round(current_game)
 
