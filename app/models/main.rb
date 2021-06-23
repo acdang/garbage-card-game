@@ -86,8 +86,8 @@ def handle_player
     player_status(status)
 end
 
-def create_round(game_id)
-    Round.new_round(game_id)
+def create_round(current_game)
+    current_game.rounds << Round.new_round
 end
 
 def lost_round(round_id, player_id)
@@ -118,11 +118,10 @@ def choose_opponent
 end
 
 def create_play_rounds(round_id, winner_player_id, loser_player_id)
-    won_round(round_id, winner_player_id)
-    lost_round(round_id, loser_player_id)
+    Player.find(winner_player_id).play_rounds << won_round(round_id, winner_player_id)
+    Player.find(loser_player_id).play_rounds << lost_round(round_id, loser_player_id)
 end
 
-# could this be simplified any further?
 def play_game
     # Create game
     current_game = create_game()
@@ -131,7 +130,7 @@ def play_game
     cpu_opponent = choose_opponent()
 
     # Create round 1
-    round1 = create_round(current_game.id)
+    round1 = create_round(current_game)
 
     # gameplay
 
@@ -139,7 +138,7 @@ def play_game
     # create_play_rounds(round1.id, [winner_player_id], [loser_player_id])
 
     # Create round 2
-    round2 = create_round(current_game.id)
+    round2 = create_round(current_game)
 
     # gameplay
 
@@ -147,7 +146,7 @@ def play_game
     # create_play_rounds(round2.id, [winner_player_id], [loser_player_id])
 
     # Create round 3
-    round3 = create_round(current_game.id)
+    round3 = create_round(current_game)
 
     # gameplay
 
@@ -173,7 +172,7 @@ current_player = handle_player()
 
 # return Player instance of the winner of a round
 def round_winner(round_id, current_player, cpu_opponent)
-    
+
 end
 
 def total_num_games
