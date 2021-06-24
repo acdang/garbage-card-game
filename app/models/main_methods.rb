@@ -34,6 +34,10 @@ def sign_up
 
     puts "\n"
     Player.new_player(f_name, l_name)
+    # registered = TTY::Prompt.new
+    # registered.ok("Hello, #{f_name} #{l_name}!")
+    # puts "\n"
+    # Player.new_player(f_name, l_name) # UNCOMMENT THIS LATER!!!!!!!!
 end
 # check if Player exists
 def check_player

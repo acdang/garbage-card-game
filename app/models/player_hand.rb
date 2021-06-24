@@ -1,4 +1,5 @@
 require "tty-prompt"
+require 'pry'
 
 class PlayerHand
 
@@ -17,45 +18,72 @@ class PlayerHand
     
     def make_move
 
+        puts "\nIt is #{@player.full_name}'s turn.\n\n"
+
         card = deck.remove_card
 
         while card do
 
-            if card != nil
-                card %= 13
-            else
-                return true
-            end
+            spots = empty_spots
+            print_spots(spots)
+
+            card %= 13
 
             if card == 0
-                
-                prompt = TTY::Prompt.new
-                
-                i = 0
-                available_spots = []
-                while i < 10 do
-                    if @cards[i] != nil
-                        available_spots << i + 1
+
+                if !(@player.is_cpu)
+
+                    prompt = TTY::Prompt.new
+
+                    location = prompt.select("You pulled a wild card! Choose an empty spot to fill with your wild card:", spots)
+                    
+                    print "\n"
+
+                    card = swap_cards(location)
+                    
+                    if complete_hand?(@cards)
+                        win
+                        return true
                     end
-                    i += 1
-                end
-                puts "You pulled a wild card!"
-                location = prompt.select("Choose a spot to fill with your wild card:", available_spots)
-                
-                card = swap_cards(location)
-                
-                if complete_hand?(@cards)
-                    win
+
+                else
+
+                    i = spots.sample
+                    card = @cards[i - 1]
+                    @cards[i - 1] = nil
+
+                    puts "#{@player.full_name} pulled a wild card! #{@player.full_name} fills a #{i} with their wild.\n\n"
+
+                    sleep(2.5)
+
+                    if complete_hand?(@cards)
+                        win
+                        return true
+                    end
                 end
 
             elsif card == 11 || card == 12
+
+                garbage_card_prompt(card)
                 return true
 
             else
+
+                replace_card_prompt(card)
+                
+                temp = card
+
                 card = swap_cards(card)
+
+                if card == nil
+                    already_played_prompt(temp)
+                end
+
                 if complete_hand?(@cards)
                     win
+                    return true
                 end
+
             end
 
         end
@@ -71,12 +99,87 @@ class PlayerHand
         return new
     end
 
+    def replace_card_prompt(card)
+        if @player.is_cpu
+            puts "---> #{@player.full_name} pulled a #{card}! #{@player.full_name} plays their #{card}.\n\n"
+            sleep(2.5)
+        else
+            continue = TTY::Prompt.new
+            continue.keypress("---> You pulled a #{card}! Press enter to play your card.\n", keys: [:return])
+        end
+    end
+
+    def garbage_card_prompt(card)
+        if card == 11
+            card = "jack"
+        else
+            card = "queen"
+        end
+
+        if @player.is_cpu
+            puts "---> #{@player.full_name} pulled a #{card}, which is a garbage card. Their turn ends.\n\n"
+            sleep(2.5)
+        else
+            continue = TTY::Prompt.new
+            continue.keypress("---> You pulled a #{card}, which is a garbage card. Press enter to end your turn.\n", keys: [:return])
+        end
+    end
+
+    def already_played_prompt(card)
+        if @player.is_cpu
+            puts "#{@player.full_name} has already played this #{card}. Their turn ends.\n\n"
+            sleep(2.5)
+        else
+            continue = TTY::Prompt.new
+            continue.keypress("You have already played a #{card}. Press enter to end your turn.\n", keys: [:return])
+        end
+    end
+    
+    def empty_spots
+        i = 0
+        empty_spots = []
+        while i < 10 do
+            if @cards[i] != nil
+                empty_spots << i + 1
+            end
+            i += 1
+        end
+        empty_spots
+    end
+
+    def print_spots(empty)
+        if @player.is_cpu
+            print "#{@player.full_name} draws a card. Here are #{@player.full_name}'s empty spots: "
+        else
+            print "You draw a card. Here are your empty spots: "
+        end
+
+        len = empty.length
+        if len > 2
+            i = 1
+            while i < len
+                print "#{empty[i - 1]}, "
+                i += 1
+            end
+            print "and #{empty[len - 1]}\n\n"
+        elsif len == 2
+            print "#{empty[0]} and #{empty[1]}\n\n"
+        else
+            print "#{empty[0]}\n\n"
+        end
+    end
+
     def complete_hand?(array)
         array.uniq.size <= 1
     end
 
     def win
         @round_won = true
+        if @player.is_cpu
+            puts "#{@player.full_name} won the round!"
+        else
+            puts "You won the round!"
+        end
     end
 
 end
