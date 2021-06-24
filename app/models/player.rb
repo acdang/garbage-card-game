@@ -17,6 +17,7 @@ class Player < ActiveRecord::Base
 
     # return all games played by a player
     def games
+        self.rounds.reload # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         # get all game_ids from all player's rounds
         game_ids = self.rounds.map {|round| round.game_id}.uniq
 

@@ -139,7 +139,6 @@ end
 def menu(current_player)
     puts "----------------------------"
     hello = TTY::Prompt.new
-    # binding.pry
     hello.ok("Hello, #{current_player.full_name}!")
     puts "\n"
 
@@ -191,7 +190,6 @@ def display_stats(current_player)
     puts "\n"
 
     # display total num of games won
-
 end
 
 def gameplay(round, current_player, cpu_opponent)
@@ -237,7 +235,6 @@ def play_game(current_player)
     second_round = TTY::Prompt.new
     second_round.keypress("---> Press enter to beging ROUND 2", keys: [:return])
 
-    # binding.pry
     # Create round 2
     round2 = create_round(current_game)
 
@@ -253,7 +250,7 @@ def play_game(current_player)
     # gameplay + PlayRounds
     gameplay(round3, current_player, cpu_opponent)
 
-    current_game.finished
+    current_game = current_game.finished
     winner = TTY::Prompt.new
     winner.ok("The winner of this game is #{current_game.get_winner.full_name}!")
     puts "\n"
@@ -262,5 +259,4 @@ def play_game(current_player)
     go_home = TTY::Prompt.new
     go_home.keypress("---> Press enter to go to HOME", keys: [:return])
     menu(current_player)
-
 end

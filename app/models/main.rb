@@ -17,15 +17,12 @@ puts "\n"
 current_player = handle_player()
 
 # Home stats ======================================================
-
 menu(current_player)
 
-continue = TTY::Prompt.new
-continue.keypress("---> Press enter to create a NEW GAME\n", keys: [:return])
+# continue = TTY::Prompt.new
+# continue.keypress("---> Press enter to create a NEW GAME\n", keys: [:return])
 
 # Play game ======================================================
 
 # play_game(current_player, cpu_opponent)
 # play_game(current_player)
-
-# binding.pry
