@@ -60,7 +60,6 @@ class PlayerHand
                         win
                         return true
                     end
-
                 end
 
             elsif card == 11 || card == 12
