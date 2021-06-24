@@ -36,6 +36,23 @@ class Player < ActiveRecord::Base
 
     # return total num of games a player has won
     def num_games_won
-        
+        # get all player's completed games
+        # get round id's of those
+        # in each play_round with round ids in array check if is_player == self && is_winner == true is >= 2
+
+
+        # self.rounds.reload
+        # # get all of a player's rounds ids
+        # all_round_ids = self.rounds.map {|round| round.id}.uniq
+        # # in each play_round with round ids in array check if is_player == self && is_winner == true is >= 2
+        # binding.pry
+        # wins = all_round_ids.map do |round_id|
+        #     if self.play_rounds.where(["round_id = ? and is_winner = ?", "#{round_id}", "true"]).count >= 2
+        #         1
+        #         binding.pry
+        #     end
+        # end
+        # binding.pry
+        # wins.count
     end
 end

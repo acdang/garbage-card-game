@@ -179,8 +179,9 @@ def display_stats(current_player)
     #display total number of completed games by player
     puts "Number of completed games: #{current_player.total_num_completed_games}"
     puts "\n"
-
     # display total num of games won
+    # puts "Number of games won: #{current_player.num_games_won}"
+    # puts "\n"
 end
 
 def gameplay(round, current_player, cpu_opponent)
