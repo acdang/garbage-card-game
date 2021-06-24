@@ -17,7 +17,7 @@ class Player < ActiveRecord::Base
 
     # return all games played by a player
     def games
-        self.rounds.reload # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        self.rounds.reload
         # get all game_ids from all player's rounds
         game_ids = self.rounds.map {|round| round.game_id}.uniq
 
@@ -26,7 +26,6 @@ class Player < ActiveRecord::Base
     end
 
     # return total num games a player has played (completed or not completed)
-    # WILL SIMPLIFY
     def total_num_games
         self.games.count
     end
@@ -35,44 +34,8 @@ class Player < ActiveRecord::Base
         self.games.select {|game| game.is_complete == true}.count
     end
 
-
-
     # return total num of games a player has won
     def num_games_won
-        # get all player's PlayRounds
-        all_play_rounds = self.play_rounds #if nothing, return 0
-
-        # get all player's Round ids (uniq)
-        all_round_ids_uniq = all_play_rounds.map {|play_round| play_round.round_id}.uniq
-
-        #get Rounds from those ids
-        rounds = Round.find(all_round_ids_uniq)
-
-        # get game ids from those Rounds
-        all_game_ids_uniq = rounds.map {|round| round.game_id}.uniq
-
-        # get all games (uniq) -- returned in an array
-        all_games = Game.find(all_game_ids_uniq)
-
-        # select all Games where winner_player_id == self.id ????????
-        all_wins = all_games.map {|round| round.winner_player_id == self.id}
-
-        # return count of winning games
-        all_wins.count
-    end
-
-    # return a player's number of wins in a particular round
-    def num_wins_in_round(round_id)
-        # get all player's PlayRounds
-        all_play_rounds = self.play_rounds #if nothing, return 0
-
-        # get all PlayRounds of a particular round
-        play_rounds = all_play_rounds.select {|play_round| play_round.round_id == round_id}
-
-        # select PlayRounds player has won
-        won = play_rounds.select {|play_round| is_winner == true}
-
-        # return count
-        won.count
+        
     end
 end
