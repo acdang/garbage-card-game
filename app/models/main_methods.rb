@@ -195,6 +195,9 @@ def gameplay(round, current_player, cpu_opponent)
 
     while !(current_player_hand.round_won) && !(cpu_player_hand.round_won) do
         current_player_hand.make_move
+        if current_player_hand.round_won
+            break
+        end
         cpu_player_hand.make_move
     end
 
@@ -250,7 +253,6 @@ def play_game(current_player)
     winner = TTY::Prompt.new
     winner.ok("The winner of this game is #{current_game.get_winner.full_name}!")
     puts "\n"
-    # puts "The winner of this game is #{current_game.get_winner.full_name}"
 
     go_home = TTY::Prompt.new
     go_home.keypress("---> Press enter to go to HOME", keys: [:return])
