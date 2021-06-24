@@ -194,19 +194,7 @@ def display_stats(current_player)
 
 end
 
-
-def play_game(current_player)
-    # Create game
-    current_game = create_game()
-
-    # Choose opponent
-    cpu_opponent = choose_opponent()
-
-    # binding.pry
-    # Create round 1
-    round1 = create_round(current_game)
-
-    # gameplay
+def gameplay(current_player, cpu_opponent)
     deck1 = Deck.new
     current_player_hand = PlayerHand.new(deck1, current_player)
     cpu_player_hand = PlayerHand.new(deck1, cpu_opponent)
@@ -226,36 +214,44 @@ def play_game(current_player)
 
     # PlayRounds
     create_play_rounds(round1, winning_player, losing_player)
+end
 
-    # second_round = TTY::Prompt.new
-    # second_round.keypress("---> Press enter to beging ROUND 2\n", keys: [:return])
+
+def play_game(current_player)
+    # Create game
+    current_game = create_game()
+
+    # Choose opponent
+    cpu_opponent = choose_opponent()
+
+
+    # Create round 1
+    round1 = create_round(current_game)
+
+    # gameplay + PlayRounds
+    gameplay(current_player, cpu_opponent)
+
+    second_round = TTY::Prompt.new
+    second_round.keypress("---> Press enter to beging ROUND 2", keys: [:return])
 
     binding.pry
     # Create round 2
     round2 = create_round(current_game)
 
-    # gameplay
-    # winning_player = ?
-    # losing_player = ?
-
-
-    # PlayRounds
-    # create_play_rounds(round2, [winning_player], [losing_player])
+    # gameplay + PlayRounds
+    gameplay(current_player, cpu_opponent)
 
     third_round = TTY::Prompt.new
-    third_round.keypress("---> Press enter to beging ROUND 3\n", keys: [:return])
+    third_round.keypress("---> Press enter to beging ROUND 3", keys: [:return])
 
     # Create round 3
     round3 = create_round(current_game)
 
-    # gameplay
-    # winning_player = ?
-    # losing_player = ?
+    # gameplay + PlayRounds
+    gameplay(current_player, cpu_opponent)
 
-
-    # PlayRounds
-    # create_play_rounds(round3, [winning_player], [losing_player])
-
+    go_home = TTY::Prompt.new
+    go_home.keypress("---> Press enter to go to HOME", keys: [:return])
     menu()
 
 end
