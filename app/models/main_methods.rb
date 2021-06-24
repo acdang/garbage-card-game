@@ -194,7 +194,7 @@ def display_stats(current_player)
 
 end
 
-def gameplay(current_player, cpu_opponent)
+def gameplay(round, current_player, cpu_opponent)
     deck1 = Deck.new
     current_player_hand = PlayerHand.new(deck1, current_player)
     cpu_player_hand = PlayerHand.new(deck1, cpu_opponent)
@@ -212,8 +212,11 @@ def gameplay(current_player, cpu_opponent)
         losing_player = current_player_hand.player
     end
 
+    puts "\n"
+    puts "The winner of this round is #{winning_player.full_name}."
+    puts "\n"
     # PlayRounds
-    create_play_rounds(round1, winning_player, losing_player)
+    create_play_rounds(round, winning_player, losing_player)
 end
 
 
@@ -229,17 +232,17 @@ def play_game(current_player)
     round1 = create_round(current_game)
 
     # gameplay + PlayRounds
-    gameplay(current_player, cpu_opponent)
+    gameplay(round1, current_player, cpu_opponent)
 
     second_round = TTY::Prompt.new
     second_round.keypress("---> Press enter to beging ROUND 2", keys: [:return])
 
-    binding.pry
+    # binding.pry
     # Create round 2
     round2 = create_round(current_game)
 
     # gameplay + PlayRounds
-    gameplay(current_player, cpu_opponent)
+    gameplay(round2, current_player, cpu_opponent)
 
     third_round = TTY::Prompt.new
     third_round.keypress("---> Press enter to beging ROUND 3", keys: [:return])
@@ -248,15 +251,16 @@ def play_game(current_player)
     round3 = create_round(current_game)
 
     # gameplay + PlayRounds
-    gameplay(current_player, cpu_opponent)
+    gameplay(round3, current_player, cpu_opponent)
 
     current_game.finished
     winner = TTY::Prompt.new
     winner.ok("The winner of this game is #{current_game.get_winner.full_name}!")
+    puts "\n"
     # puts "The winner of this game is #{current_game.get_winner.full_name}"
 
     go_home = TTY::Prompt.new
     go_home.keypress("---> Press enter to go to HOME", keys: [:return])
-    menu()
+    menu(current_player)
 
 end
