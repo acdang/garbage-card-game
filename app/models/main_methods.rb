@@ -149,26 +149,26 @@ end
 def delete_account(current_player)
     # get all round ids
     round_ids = current_player.rounds.ids
-    binding.pry
+
     # delete all play_rounds with that round_id
     round_ids.map do |round_id|
         PlayRound.where(round_id: round_id).delete_all
     end
-    binding.pry
+
     # delete all games that the round belongs to
     current_player.rounds.map do |round|
         # Game.find(round.game_id).delete
         Game.delete(round.game_id)
     end
-    binding.pry
+
     # delete all rounds
     current_player.rounds.map do |round|
         Round.delete(round.id)
     end
-    binding.pry
+
     # delete player
     Player.delete(current_player.id)
-    binding.pry
+
 end
 
 def menu(current_player)

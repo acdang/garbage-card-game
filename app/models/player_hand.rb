@@ -52,7 +52,7 @@ class PlayerHand
                     card = @cards[i - 1]
                     @cards[i - 1] = nil
 
-                    puts "#{@player.full_name} pulled a " + "W".red + "I".yellow + "L".green + "D ".blue + "card! #{@player.full_name} fills a #{i} with their " + "W".red + "I".yellow + "L".green + "D ".blue + "card.\n\n"
+                    puts "#{@player.full_name} pulled a " + "W".light_red + "I".light_yellow + "L".light_green + "D ".light_blue + "card! #{@player.full_name} fills a #{i} with their " + "W".light_red + "I".light_yellow + "L".light_green + "D ".light_blue + "card.\n\n"
 
                     sleep(2.1)
 
@@ -178,7 +178,7 @@ class PlayerHand
         if @player.is_cpu
             puts "#{@player.full_name} won the round!\n".light_blue
         else
-            puts "You won the round!\n"
+            puts "You won the round!\n".light_blue
         end
     end
 
