@@ -18,7 +18,7 @@ class PlayerHand
     
     def make_move
 
-        puts "\nIt is #{@player.full_name}'s turn.\n\n"
+        puts "\nIt is #{@player.full_name}'s turn.\n\n".light_green
 
         card = deck.remove_card
 
@@ -35,7 +35,7 @@ class PlayerHand
 
                     prompt = TTY::Prompt.new
 
-                    location = prompt.select("You pulled a wild card! Choose an empty spot to fill with your wild card:", spots)
+                    location = prompt.select("You pulled a " + "W".light_red + "I".light_yellow + "L".light_green + "D ".light_blue + "card! Choose an empty spot to fill with your " + "W".light_red + "I".light_yellow + "L".light_green + "D ".light_blue + "card:", spots)
                     
                     print "\n"
 
@@ -52,9 +52,9 @@ class PlayerHand
                     card = @cards[i - 1]
                     @cards[i - 1] = nil
 
-                    puts "#{@player.full_name} pulled a wild card! #{@player.full_name} fills a #{i} with their wild.\n\n"
+                    puts "#{@player.full_name} pulled a " + "W".red + "I".yellow + "L".green + "D ".blue + "card! #{@player.full_name} fills a #{i} with their " + "W".red + "I".yellow + "L".green + "D ".blue + "card.\n\n"
 
-                    sleep(2.5)
+                    sleep(2.25)
 
                     if complete_hand?(@cards)
                         win
@@ -102,11 +102,11 @@ class PlayerHand
 
     def replace_card_prompt(card)
         if @player.is_cpu
-            puts "---> #{@player.full_name} pulled a #{card}! #{@player.full_name} plays their #{card}.\n\n"
-            sleep(2.5)
+            puts "---> #{@player.full_name} pulled a " + "#{card}".red + "! #{@player.full_name} plays their " + "#{card}".red + ".\n\n"
+            sleep(2.25)
         else
             continue = TTY::Prompt.new
-            continue.keypress("---> You pulled a #{card}! Press enter to play your card.\n", keys: [:return])
+            continue.keypress("---> You pulled a " + "#{card}".red + "! Press enter to play your card.\n", keys: [:return])
         end
     end
 
@@ -118,21 +118,21 @@ class PlayerHand
         end
 
         if @player.is_cpu
-            puts "---> #{@player.full_name} pulled a #{card}, which is a garbage card. Their turn ends.\n\n"
-            sleep(2.5)
+            puts "---> #{@player.full_name} pulled a " + "#{card}".light_red + ", which is a garbage card. Their turn ends.\n\n"
+            sleep(2.25)
         else
             continue = TTY::Prompt.new
-            continue.keypress("---> You pulled a #{card}, which is a garbage card. Press enter to end your turn.\n", keys: [:return])
+            continue.keypress("---> You pulled a " + "#{card}".light_red + ", which is a garbage card. Press enter to end your turn.\n", keys: [:return])
         end
     end
 
     def already_played_prompt(card)
         if @player.is_cpu
-            puts "#{@player.full_name} has already played this #{card}. Their turn ends.\n\n"
-            sleep(2.5)
+            puts "#{@player.full_name} has already played this " + "#{card}".light_red + ". Their turn ends.\n\n"
+            sleep(2.25)
         else
             continue = TTY::Prompt.new
-            continue.keypress("You have already played a #{card}. Press enter to end your turn.\n", keys: [:return])
+            continue.keypress("You have already played a " + "#{card}".light_red + ". Press enter to end your turn.\n", keys: [:return])
         end
     end
     
@@ -152,21 +152,21 @@ class PlayerHand
         if @player.is_cpu
             print "#{@player.full_name} draws a card. Here are #{@player.full_name}'s empty spots: "
         else
-            print "You draw a card. Here are your empty spots: "
+            print "You draw a card. These are your empty spots: "
         end
 
         len = empty.length
         if len > 2
             i = 1
             while i < len
-                print "#{empty[i - 1]}, "
+                print "#{empty[i - 1]}".green + ", "
                 i += 1
             end
-            print "and #{empty[len - 1]}\n\n"
+            print "and " + "#{empty[len - 1]}\n\n".green
         elsif len == 2
-            print "#{empty[0]} and #{empty[1]}\n\n"
+            print "#{empty[0]} ".green + "and " + "#{empty[1]}\n\n".green
         else
-            print "#{empty[0]}\n\n"
+            print "#{empty[0]}\n\n".green
         end
     end
 
@@ -177,7 +177,7 @@ class PlayerHand
     def win
         @round_won = true
         if @player.is_cpu
-            puts "#{@player.full_name} won the round!"
+            puts "#{@player.full_name} won the round!".light_green
         else
             puts "You won the round!"
         end
