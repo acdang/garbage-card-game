@@ -27,14 +27,11 @@ def get_last_name
     end
 end
 def sign_up
-    puts "---> SIGN UP\n"
+    puts "---> SIGN UP"
 
     f_name = get_first_name()
     l_name = get_last_name()
 
-    puts "\n"
-    # registered = TTY::Prompt.new
-    # registered.ok("Hello, #{f_name} #{l_name}!")
     puts "\n"
     Player.new_player(f_name, l_name)
 end
@@ -43,29 +40,23 @@ def check_player
     user_exists = false
 
     # while user_exists == false
-        puts "---> LOG IN\n"
+    puts "---> LOG IN"
 
-        f_name = get_first_name()
-        l_name = get_last_name()
+    f_name = get_first_name()
+    l_name = get_last_name()
 
-        search_player = Player.check_player(f_name, l_name)
+    search_player = Player.check_player(f_name, l_name)
 
-        if search_player
-            puts "\n"
-            # exist = TTY::Prompt.new
-            # exist.ok("Hello, #{f_name} #{l_name}!")
-            puts "\n"
-            user_exists = true
-        else
-            puts "\n"
-            not_exist = TTY::Prompt.new
-            not_exist.error("That user does not exist.")
-            puts "\n"
+    if search_player
+        search_player
+    else
+        puts "\n"
+        not_exist = TTY::Prompt.new
+        not_exist.error("That user does not exist.")
+        puts "\n"
 
-            next_steps_prompt()
-        end
-    # end
-    search_player
+        next_steps_prompt()
+    end
 end
 def player_status(status)
     # create new Player if yes
