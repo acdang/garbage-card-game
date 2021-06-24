@@ -10,7 +10,7 @@ require "tty-prompt"
 # Welcome ======================================================
 puts "Welcome to Garbage, a card game!"
 puts "\n"
-
+binding.pry
 # Handle player ======================================================
 current_player = handle_player()
 

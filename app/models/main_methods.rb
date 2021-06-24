@@ -111,26 +111,61 @@ def menu_prompt(current_player)
     if choice == 1
         play_game(current_player)
     elsif choice == 2
-        delete_account(current_player)
+        delete_account_prompt(current_player)
     else
         exit
     end
 end
 
-def delete_account(current_player)
+def delete_account_prompt(current_player)
     puts "\n"
     confirm = TTY::Prompt.new
     choice = confirm.yes?("Are you sure you want to DELETE your account?")
 
     if choice
         puts "\n"
-        puts "WILL DELETE ACCOUNT"
+        puts "DELETING ACCOUNT ..."
+        sleep(1)
+        puts "."
+        sleep(1)
+        puts "."
+        sleep(1)
+        puts "."
+        sleep(1)
+        delete_account(current_player)
+        puts "Acount deleted.".light_red
+        puts "Goodbye!"
         puts "\n"
 
         exit
     else
         menu(current_player)
     end
+end
+
+def delete_account(current_player)
+    # get all round ids
+    round_ids = current_player.rounds.ids
+    binding.pry
+    # delete all play_rounds with that round_id
+    round_ids.map do |round_id|
+        PlayRound.where(round_id: round_id).delete_all
+    end
+    binding.pry
+    # delete all games that the round belongs to
+    current_player.rounds.map do |round|
+        # Game.find(round.game_id).delete
+        Game.delete(round.game_id)
+    end
+    binding.pry
+    # delete all rounds
+    current_player.rounds.map do |round|
+        Round.delete(round.id)
+    end
+    binding.pry
+    # delete player
+    Player.delete(current_player.id)
+    binding.pry
 end
 
 def menu(current_player)
@@ -151,7 +186,7 @@ def display_stats(current_player)
     # display total num of games won
     puts "Number of games won: #{current_player.num_games_won}"
     win_percentage = (current_player.num_games_won.to_f / current_player.total_num_completed_games) * 100
-    puts "Win percentage: #{win_percentage}"
+    puts "Win percentage: #{win_percentage.nan? ? "" : win_percentage}"
     puts "\n"
 end
 
