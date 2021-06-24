@@ -250,6 +250,11 @@ def play_game(current_player)
     # gameplay + PlayRounds
     gameplay(current_player, cpu_opponent)
 
+    current_game.finished
+    winner = TTY::Prompt.new
+    winner.ok("The winner of this game is #{current_game.get_winner.full_name}!")
+    # puts "The winner of this game is #{current_game.get_winner.full_name}"
+
     go_home = TTY::Prompt.new
     go_home.keypress("---> Press enter to go to HOME", keys: [:return])
     menu()
