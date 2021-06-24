@@ -118,12 +118,16 @@ def menu_prompt(current_player)
 end
 
 def delete_account(current_player)
+    puts "\n"
     confirm = TTY::Prompt.new
     choice = confirm.yes?("Are you sure you want to DELETE your account?")
 
     if choice
+        puts "\n"
         puts "WILL DELETE ACCOUNT"
         puts "\n"
+
+        exit
     else
         menu(current_player)
     end
@@ -146,6 +150,8 @@ def display_stats(current_player)
     puts "Number of completed games: #{current_player.total_num_completed_games}"
     # display total num of games won
     puts "Number of games won: #{current_player.num_games_won}"
+    win_percentage = (current_player.num_games_won.to_f / current_player.total_num_completed_games) * 100
+    puts "Win percentage: #{win_percentage}"
     puts "\n"
 end
 
