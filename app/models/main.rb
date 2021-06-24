@@ -8,7 +8,7 @@ require 'pry'
 require "tty-prompt"
 
 # Welcome ======================================================
-puts "Welcome to Garbage, a card game!"
+puts "\nWelcome to Garbage, a card game!"
 puts "\n"
 
 # Handle player ======================================================

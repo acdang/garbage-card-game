@@ -106,6 +106,8 @@ def menu_prompt(current_player)
     ]
     choice = menu.select("MENU:", options)
 
+    print "\n"
+
     if choice == 1
         play_game(current_player)
     elsif choice == 2
@@ -113,6 +115,7 @@ def menu_prompt(current_player)
     else
         exit
     end
+
 end
 
 def delete_account#(current_player)
@@ -128,9 +131,9 @@ def delete_account#(current_player)
 end
 
 def menu(current_player)
-    puts "----------------------------"
+    puts "\n----------------------------\n"
     hello = TTY::Prompt.new
-    hello.ok("Hello, #{current_player.full_name}!")
+    hello.ok("\nHello, #{current_player.full_name}!")
     puts "\n"
 
     display_stats(current_player)
@@ -161,7 +164,9 @@ def choose_opponent
         {name: opponent2.full_name, value: opponent2},
         {name: opponent3.full_name, value: opponent3}
     ]
-    opponent_prompt.select("Choose your opponent:", choices)
+    opponent = opponent_prompt.select("Choose your opponent:", choices)
+    print "\n"
+    return opponent
 end
 
 def create_play_rounds(round, winning_player, losing_player)
@@ -191,6 +196,9 @@ def gameplay(round, current_player, cpu_opponent)
 
     while !(current_player_hand.round_won) && !(cpu_player_hand.round_won) do
         current_player_hand.make_move
+        if current_player_hand.round_won
+            break
+        end
         cpu_player_hand.make_move
     end
 
@@ -216,7 +224,6 @@ def play_game(current_player)
 
     # Choose opponent
     cpu_opponent = choose_opponent()
-
 
     # Create round 1
     round1 = create_round(current_game)

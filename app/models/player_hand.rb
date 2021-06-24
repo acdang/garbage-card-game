@@ -18,7 +18,7 @@ class PlayerHand
     
     def make_move
 
-        puts "\nIt is #{@player.full_name}'s turn.\n\n".light_green
+        puts "\nIt is #{@player.full_name}'s turn.\n\n".light_blue
 
         card = deck.remove_card
 
@@ -54,7 +54,7 @@ class PlayerHand
 
                     puts "#{@player.full_name} pulled a " + "W".red + "I".yellow + "L".green + "D ".blue + "card! #{@player.full_name} fills a #{i} with their " + "W".red + "I".yellow + "L".green + "D ".blue + "card.\n\n"
 
-                    sleep(2.25)
+                    sleep(2.1)
 
                     if complete_hand?(@cards)
                         win
@@ -102,7 +102,7 @@ class PlayerHand
     def replace_card_prompt(card)
         if @player.is_cpu
             puts "---> #{@player.full_name} pulled a " + "#{card}".red + "! #{@player.full_name} plays their " + "#{card}".red + ".\n\n"
-            sleep(2.25)
+            sleep(2.1)
         else
             continue = TTY::Prompt.new
             continue.keypress("---> You pulled a " + "#{card}".red + "! Press enter to play your card.\n", keys: [:return])
@@ -118,7 +118,7 @@ class PlayerHand
 
         if @player.is_cpu
             puts "---> #{@player.full_name} pulled a " + "#{card}".light_red + ", which is a garbage card. Their turn ends.\n\n"
-            sleep(2.25)
+            sleep(2.1)
         else
             continue = TTY::Prompt.new
             continue.keypress("---> You pulled a " + "#{card}".light_red + ", which is a garbage card. Press enter to end your turn.\n", keys: [:return])
@@ -128,7 +128,7 @@ class PlayerHand
     def already_played_prompt(card)
         if @player.is_cpu
             puts "#{@player.full_name} has already played this " + "#{card}".light_red + ". Their turn ends.\n\n"
-            sleep(2.25)
+            sleep(2.1)
         else
             continue = TTY::Prompt.new
             continue.keypress("You have already played a " + "#{card}".light_red + ". Press enter to end your turn.\n", keys: [:return])
@@ -176,9 +176,9 @@ class PlayerHand
     def win
         @round_won = true
         if @player.is_cpu
-            puts "#{@player.full_name} won the round!".light_green
+            puts "#{@player.full_name} won the round!\n".light_blue
         else
-            puts "You won the round!"
+            puts "You won the round!\n"
         end
     end
 
