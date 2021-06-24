@@ -39,8 +39,8 @@ class PlayerHand
                     end
                     i += 1
                 end
-
-                location = prompt.select("You pulled a wild card! Choose a spot to fill with your wild card:", available_spots)
+                puts "You pulled a wild card!"
+                location = prompt.select("Choose a spot to fill with your wild card:", available_spots)
                 
                 card = swap_cards(location)
                 
