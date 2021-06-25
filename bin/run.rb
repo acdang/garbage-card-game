@@ -1,5 +1,5 @@
 require_relative '../config/environment'
+ActiveRecord::Base.logger = nil
 
-
-
-puts "HELLO WORLD"
+system "clear"
+start_game
