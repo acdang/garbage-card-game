@@ -101,11 +101,11 @@ class PlayerHand
 
     def replace_card_prompt(card)
         if @player.is_cpu
-            puts "---> #{@player.full_name} pulled a " + "#{card}".red + "! #{@player.full_name} plays their " + "#{card}".red + ".\n\n"
+            puts "---> #{@player.full_name} pulled a " + "#{card}".light_red + "! #{@player.full_name} plays their " + "#{card}".light_red + ".\n\n"
             sleep(2.1)
         else
             continue = TTY::Prompt.new
-            continue.keypress("---> You pulled a " + "#{card}".red + "! Press enter to play your card.\n", keys: [:return])
+            continue.keypress("---> You pulled a " + "#{card}".light_red + "! Press enter to play your card.\n", keys: [:return])
         end
     end
 
