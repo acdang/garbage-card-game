@@ -1,6 +1,6 @@
 # Garbage: A Card Game
 
-Created by [Jonathan Yu](https://github.com/orangetangerin) and [Anh Dang](https://github.com/acdang).
+Created by [Jonathan Yu](https://github.com/orangetangerin) and [Anh Dang](https://github.com/anhcdang).
 
 This project simulates the card game Garbage (also known as Trash). Your opponent will be a CPU.
 
